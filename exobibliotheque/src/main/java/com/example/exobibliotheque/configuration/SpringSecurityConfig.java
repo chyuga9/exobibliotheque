@@ -32,7 +32,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 			.anyRequest().authenticated()
 			.and()
 			.formLogin().and()
-			// nécessaire pour ne plus subir spring security
+			/*
+			 * Permet de contourner l'erreur 403 obtenu pour la requete POST
+			 * à creuser
+			 */
 			.csrf().disable();
 			//.and()
 			//.oauth2Login();
