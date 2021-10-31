@@ -31,9 +31,11 @@ public class Oeuvre {
 	private int id;
 	
 	private String name;
+	private Date dateDeSortie;
+		
+	private String synopsis;
 	
 	@ManyToOne(optional=false)
-	@JoinColumn(name = "category_name")
 	private Category category;
 	
 	@ManyToMany(
@@ -50,24 +52,22 @@ public class Oeuvre {
 	)
 	private List<Genre> genres;
 	
-	private Date dateDeSortie;
-		
-	private String synopsis;
+	
 	
 	@OneToMany(
 			cascade = CascadeType.ALL,
 			orphanRemoval = true,
 			fetch = FetchType.LAZY
 			)
-	@JoinColumn
+	@JoinColumn(name="oeuvre_name")
 	private List<Note> notes;
-	
+
 	@OneToMany(
 			cascade = CascadeType.ALL,
 			orphanRemoval = true,
 			fetch = FetchType.LAZY
 			)
-	@JoinColumn
+	@JoinColumn(name="oeuvre_name")
 	private List<Comment> comments;
 	
 	
