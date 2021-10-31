@@ -11,7 +11,6 @@ public class Category {
 
 	// A reflechir si je change par une énumeration mais pas sur que ca convienne
 	@Id
-	private String category; 
-	
-	private String of;
-}
+	private String category;
+
+	}
