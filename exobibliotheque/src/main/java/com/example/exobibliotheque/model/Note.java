@@ -1,5 +1,6 @@
 package com.example.exobibliotheque.model;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
 import lombok.Data;
@@ -8,7 +9,8 @@ import lombok.Data;
 @Data
 public class Note {
 
-	private int note;
+	@EmbeddedId
+	private NoteId id;
 	
-	private User user;
+	private byte note;
 }

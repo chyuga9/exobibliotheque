@@ -20,7 +20,7 @@ public class ListOfOeuvresController {
 	@Autowired
 	private ListOfOeuvresService listOfOeuvresService;
 	
-	@GetMapping
+	@GetMapping("/listofoeuvres")
 	public ResponseEntity<Iterable<ListOfOeuvres>> getListsOfOeuvres(int userid){
 		logger.info("Recherche de toutes les listes de l'utilisateur");
 		return ResponseEntity.ok().body(listOfOeuvresService.getListsOfOeuvres(userid));

@@ -16,8 +16,10 @@ public class ExobibliothequeApplication {
 	private static final Logger logger = LogManager.getLogger(ExobibliothequeApplication.class);
 	
 	public static void main(String[] args) {
-		SpringApplication.run(ExobibliothequeApplication.class, args);
-		logger.info("Démarrage de l'api");
+		logger.info("Démarrage de l'api " +  1 );
+
+				SpringApplication.run(ExobibliothequeApplication.class, args);
+				logger.info("Démarrage de l'api " +  2 );
 	}
 
 }

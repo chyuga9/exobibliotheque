@@ -21,7 +21,7 @@ public class ListOfOeuvresService {
 
 	public Iterable<ListOfOeuvres> getListsOfOeuvres(int userid){
 		logger.info("lancement service");
-		return listOfOeuvresRepository.findByUserId(userid);
+		return listOfOeuvresRepository.findByIdUserid(String.valueOf(userid));
 	}
 	
 }

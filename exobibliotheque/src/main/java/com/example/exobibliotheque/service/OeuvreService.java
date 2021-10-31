@@ -21,7 +21,12 @@ public class OeuvreService {
 	//---------- Méthodes de base --------
 
 	public Iterable<Oeuvre> getOeuvres(){
-		logger.info("lancement service");
+		logger.info("Recherche de toutes les oeuvres");
 		return oeuvreRepository.findAll();
+	}
+
+	public Oeuvre saveOeuvre(Oeuvre oeuvre) {
+		logger.info("Enregistrement d'une nouvelle oeuvre");
+		return oeuvreRepository.save(oeuvre);
 	}
 }
