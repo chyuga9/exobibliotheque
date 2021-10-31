@@ -31,7 +31,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/user").hasRole("USER")
 			.anyRequest().authenticated()
 			.and()
-			.formLogin();
+			.formLogin().and()
+			// nécessaire pour ne plus subir spring security
+			.csrf().disable();
 			//.and()
 			//.oauth2Login();
 	}
