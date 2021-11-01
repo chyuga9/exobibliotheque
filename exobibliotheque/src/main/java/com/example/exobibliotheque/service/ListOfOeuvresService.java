@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.exobibliotheque.ExobibliothequeApplication;
 import com.example.exobibliotheque.model.ListOfOeuvres;
+import com.example.exobibliotheque.model.ListOfOeuvresId;
 import com.example.exobibliotheque.repository.ListOfOeuvresRepository;
+import com.example.exobibliotheque.repository.UserRepository;
 
 @Service
 public class ListOfOeuvresService {
@@ -16,12 +18,22 @@ public class ListOfOeuvresService {
 
 	@Autowired
 	private ListOfOeuvresRepository listOfOeuvresRepository;
-	
+	@Autowired
+	private UserRepository userRepository;
 	//---------- Méthodes de base --------
 
-	public Iterable<ListOfOeuvres> getListsOfOeuvres(int userid){
-		logger.info("lancement service");
-		return listOfOeuvresRepository.findByIdUserid(String.valueOf(userid));
+	public Iterable<ListOfOeuvres> getListsOfOeuvres(){
+		logger.info("Service - Recherche de toutes les listes");
+		return listOfOeuvresRepository.findAll();
+	}
+
+	public ListOfOeuvres createListsOfOeuvres(int userId, ListOfOeuvresId listId) {
+		
+		listId.setUserId(String.valueOf(userId));
+		ListOfOeuvres newList = new ListOfOeuvres(listId);
+		// demander si ça vaut le coup d'essayer de placer cette ligne et de conserver la liste "ListOfOeuvres" de User
+		//userRepository.findById(userId).get().getLists().add(newList);
+		return listOfOeuvresRepository.save(newList);
 	}
 	
 }
