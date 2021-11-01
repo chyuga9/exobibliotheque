@@ -1,5 +1,6 @@
 package com.example.exobibliotheque.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,10 +12,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ListOfOeuvres {
 	
 	@EmbeddedId
@@ -28,16 +33,21 @@ public class ListOfOeuvres {
 			joinColumns = {@JoinColumn(name = "listofoeuvres_id_userid"), @JoinColumn(name = "listofoeuvres_id_name")	},
 			inverseJoinColumns = @JoinColumn(name = "oeuvre_id_")
 	)
-	private List<Oeuvre> oeuvres;
+	private List<Oeuvre> oeuvres = new ArrayList<Oeuvre>();
 	
 	
 	
-	private void addOeuvre(Oeuvre oeuvre) {
+	public void addOeuvre(Oeuvre oeuvre) {
 		oeuvres.add(oeuvre);
 	}
 	
 	private void removeOeuvre(Oeuvre oeuvre) {
 		oeuvres.remove(oeuvre);
+	}
+
+	public ListOfOeuvres(ListOfOeuvresId id) {
+		super();
+		this.id = id;
 	}
 
 	
