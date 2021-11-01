@@ -21,11 +21,7 @@ public class ListOfOeuvres {
 	private ListOfOeuvresId id;
 			
 	@ManyToMany(
-			fetch = FetchType.EAGER,
-				cascade = { 
-						CascadeType.PERSIST, 
-						CascadeType.MERGE 
-						}	
+			fetch = FetchType.EAGER
 				)
 	@JoinTable(
 			name = "listofoeuvres_oeuvre",
