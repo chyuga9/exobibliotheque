@@ -39,11 +39,7 @@ public class Oeuvre {
 	private Category category;
 	
 	@ManyToMany(
-			fetch = FetchType.EAGER,
-				cascade = { 
-						CascadeType.PERSIST, 
-						CascadeType.MERGE 
-						}	
+			fetch = FetchType.EAGER
 				)
 	@JoinTable(
 			name = "oeuvre_genre",
