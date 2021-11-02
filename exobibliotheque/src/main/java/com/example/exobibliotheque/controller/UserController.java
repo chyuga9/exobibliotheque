@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -17,6 +18,7 @@ import com.example.exobibliotheque.model.User;
 import com.example.exobibliotheque.service.UserService;
 
 @RestController
+@RequestMapping("/api")
 public class UserController {
 	
 	private static final Logger logger = LogManager.getLogger(ExobibliothequeApplication.class);
