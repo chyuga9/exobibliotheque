@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
-	
+	/*
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 		auth.inMemoryAuthentication()
@@ -21,10 +21,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 			.withUser("springadmin").password(passwordEncoder().encode("admin123")).roles("ADMIN","USER");
 
 	}
-	
+	*/
 	@Override
 	public void configure(HttpSecurity http) throws Exception{
-		http.httpBasic()
+        http.authorizeRequests().antMatchers("/").permitAll();
+
+		/*
+		 * http.httpBasic()
 			.and()
 			.authorizeRequests()
 			.antMatchers("/admin").hasRole("ADMIN")
@@ -32,11 +35,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 			.anyRequest().authenticated()
 			.and()
 			.formLogin().and()
+			*/
 			/*
 			 * Permet de contourner l'erreur 403 obtenu pour la requete POST
 			 * à creuser
 			 */
-			.csrf().disable();
+		//.csrf().disable();
 			//.and()
 			//.oauth2Login();
 	}
