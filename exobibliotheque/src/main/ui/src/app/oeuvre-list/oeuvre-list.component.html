@@ -1,0 +1,10 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="list-group">
+            <h1>Salut</h1>
+            <button class="btn btn-primary" >(click)="onNewOeuvre()"Nouveau livre</button>
+            <app-single-oeuvre *ngFor="let oeuvre of oeuvres, let i = index"
+            [oeuvre]="oeuvres[i]"></app-single-oeuvre>
+        </div>
+    </div>
+</div>
