@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,7 @@ import com.example.exobibliotheque.model.ListOfOeuvresId;
 import com.example.exobibliotheque.model.Oeuvre;
 import com.example.exobibliotheque.service.ListOfOeuvresService;
 
+// @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api")
 public class ListOfOeuvresController {
@@ -29,10 +31,11 @@ public class ListOfOeuvresController {
 	@Autowired
 	private ListOfOeuvresService listOfOeuvresService;
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/listsofoeuvres")
 	public ResponseEntity<Iterable<ListOfOeuvres>> getListsOfOeuvres(){
 		logger.info("Controller - Recherche de toutes les listes de l'utilisateur");
-		return ResponseEntity.ok().body(listOfOeuvresService.getListsOfOeuvres());
+		return ResponseEntity.ok().header("Access-Control-Allow-Origin", "true").body(listOfOeuvresService.getListsOfOeuvres());
 	}
 	
 	@PostMapping("/listofoeuvre")
