@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,6 +62,13 @@ public class OeuvreController {
 		
 		return ResponseEntity.created(location)
 				.body(newOeuvre);
+	}
+	
+	@PutMapping("/oeuvre/{id}")
+	public ResponseEntity<Oeuvre> updateOeuvre(@RequestBody Oeuvre oeuvre){
+		logger.info("Controller - Mise à jour d'une oeuvre");
+		Oeuvre updatedOeuvre = oeuvreService.updateOeuvre(oeuvre);
+		return ResponseEntity.ok().body(updatedOeuvre);
 	}
 	
 	@DeleteMapping("/oeuvre/{id}")

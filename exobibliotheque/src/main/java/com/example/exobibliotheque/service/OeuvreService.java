@@ -36,7 +36,7 @@ public class OeuvreService {
 	// Surement ajouter un try and catch mais avant vérifier ce qu'il se passe avec
 	// un id qui n'existe pas
 	public Oeuvre getSingleOeuvre(int oeuvreId) {
-		if (oeuvreRepository.findById(oeuvreId).isEmpty())
+		if (!oeuvreRepository.existsById(oeuvreId))
 			throw new NullPointerException("Aucune personne n'a été trouvée avec l'id " + oeuvreId);
 		return oeuvreRepository.findById(oeuvreId).get();
 	}
@@ -47,14 +47,16 @@ public class OeuvreService {
 	}
 
 	public void deleteOeuvre(int oeuvreId) {
-		if (oeuvreRepository.findById(oeuvreId).isEmpty())
-			throw new NullPointerException("Aucune personne n'a été trouvée avec l'id " + oeuvreId);
 		oeuvreRepository.deleteById(oeuvreId);
+	}
+
+	public Oeuvre updateOeuvre(Oeuvre oeuvre) {
+		return oeuvreRepository.save(oeuvre);
 	}
 
 	public void addOeuvre(int oeuvreId, ListOfOeuvresId listId) {
 		Oeuvre oeuvre = oeuvreRepository.findById(oeuvreId).get();
-		logger.info(listId);
+		// logger.info(listId);
 		// Je n'arrive pas à obtenir son id du coup je passe par la classe de l'id pour
 		// obtenir la liste souhaitée
 		ListOfOeuvres list = listRepository.findById(listId).get();
