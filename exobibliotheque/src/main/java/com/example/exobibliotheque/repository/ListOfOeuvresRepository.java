@@ -13,6 +13,7 @@ public interface ListOfOeuvresRepository extends CrudRepository<ListOfOeuvres, L
 
 	Iterable<ListOfOeuvres> findByIdUserId(String userid);
 	Optional<ListOfOeuvres> findByIdName(String name);
+	boolean existByIdName(String listName);
 
 
 	
