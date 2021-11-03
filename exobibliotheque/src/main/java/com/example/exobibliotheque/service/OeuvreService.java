@@ -34,6 +34,11 @@ public class OeuvreService {
 		logger.info("Recherche de toutes les oeuvres");
 		return oeuvreRepository.findAll();
 	}
+	
+	// Surement ajouter un try and catch mais avant vérifier ce qu'il se passe avec un id qui n'existe pas
+	public Oeuvre getSingleOeuvre(int oeuvreId) {
+		return oeuvreRepository.findById(oeuvreId).get();
+	}
 
 	public Oeuvre saveOeuvre(Oeuvre oeuvre) {
 		logger.info("Enregistrement d'une nouvelle oeuvre");
@@ -50,4 +55,6 @@ public class OeuvreService {
 		list.getOeuvres().add(oeuvre);
 		listRepository.save(list);
 	}
+
+
 }

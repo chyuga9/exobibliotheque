@@ -22,6 +22,7 @@ import com.example.exobibliotheque.model.ListOfOeuvresId;
 import com.example.exobibliotheque.model.Oeuvre;
 import com.example.exobibliotheque.service.OeuvreService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api")
 public class OeuvreController {
@@ -31,12 +32,20 @@ public class OeuvreController {
 	@Autowired
 	private OeuvreService oeuvreService;
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	// --------  Controllers BDD Oeuvres
+	
 	@GetMapping("/oeuvres")
 	public ResponseEntity<Iterable<Oeuvre>> getOeuvres(){
 		logger.info("Controller - Recherche de toutes les oeuvres");
 		return ResponseEntity.ok().body(oeuvreService.getOeuvres());
 	}
+	
+	@GetMapping("/oeuvres/{id}")
+	public ResponseEntity<Oeuvre> getSingleOeuvre(@PathVariable int oeuvreId){
+		logger.info("Controller - Recherche de l'oeuvre avec l'id "+ oeuvreId);
+		return ResponseEntity.ok().body(oeuvreService.getSingleOeuvre(oeuvreId));
+	}
+	
 	
 	@PostMapping("/oeuvre")
 	public ResponseEntity<Oeuvre> createOeuvre(@RequestBody Oeuvre oeuvre){
@@ -54,11 +63,17 @@ public class OeuvreController {
 				.body(newOeuvre);
 	}
 	
+	
+	
+	// -------- Controllers autre
+	
+	// Est ce que je peux vraiment envoyer une réponse vide ?
 	@PostMapping("/oeuvre/addoeuvreinlist")
 	public ResponseEntity<Void> addOeuvre(@RequestParam int oeuvreId, @RequestBody ListOfOeuvresId listId){
 		logger.info("Controller - Ajout d'une oeuvre dans une liste");
 		oeuvreService.addOeuvre(oeuvreId,listId);
-		return null;
+		return ResponseEntity.ok().build();
+		
 
 
 	}
