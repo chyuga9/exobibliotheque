@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.exobibliotheque.ExobibliothequeApplication;
 import com.example.exobibliotheque.model.ListOfOeuvres;
 import com.example.exobibliotheque.model.ListOfOeuvresId;
+import com.example.exobibliotheque.model.Oeuvre;
 import com.example.exobibliotheque.repository.ListOfOeuvresRepository;
 import com.example.exobibliotheque.repository.UserRepository;
 
@@ -45,7 +46,15 @@ public class ListOfOeuvresService {
 
 	public void deleteListOfOeuvres(String listName) {
 		listOfOeuvresRepository.deleteByIdName(listName);
+		logger.info("La liste \"" + listName + "\" a été supprimée");
 		
+	}
+
+	public void deleteOeuvreFromList(Oeuvre oeuvre, ListOfOeuvresId listId) {
+		ListOfOeuvres list = listOfOeuvresRepository.findById(listId).get();
+		list.getOeuvres().remove(oeuvre);
+		listOfOeuvresRepository.save(list);
+		logger.info("\"" + oeuvre.getName() + "\" a été supprimée de la liste \"" + listId.getName());
 	}
 
 }
