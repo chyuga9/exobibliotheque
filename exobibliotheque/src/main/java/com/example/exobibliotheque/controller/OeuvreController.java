@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,7 +47,6 @@ public class OeuvreController {
 		return ResponseEntity.ok().body(oeuvreService.getSingleOeuvre(oeuvreId));
 	}
 	
-	
 	@PostMapping("/oeuvre")
 	public ResponseEntity<Oeuvre> createOeuvre(@RequestBody Oeuvre oeuvre){
 		logger.info("Controller - Ajout d'une oeuvre");
@@ -62,6 +62,14 @@ public class OeuvreController {
 		return ResponseEntity.created(location)
 				.body(newOeuvre);
 	}
+	
+	@DeleteMapping("/oeuvre/{id}")
+	public ResponseEntity<String> deleteOeuvre(@PathVariable int oeuvreId){
+		logger.info("Controller - Recherche de l'oeuvre avec l'id "+ oeuvreId + "pour suppression");
+		oeuvreService.deleteOeuvre(oeuvreId);
+		return ResponseEntity.ok().body("Oeuvre deleted");
+	}
+	
 	
 	
 	
