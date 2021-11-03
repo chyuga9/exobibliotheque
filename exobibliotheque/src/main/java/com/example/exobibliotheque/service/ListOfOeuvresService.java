@@ -43,4 +43,9 @@ public class ListOfOeuvresService {
 		return listOfOeuvresRepository.save(newList);
 	}
 
+	public void deleteListOfOeuvres(String listName) {
+		listOfOeuvresRepository.deleteByIdName(listName);
+		
+	}
+
 }
