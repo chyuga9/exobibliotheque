@@ -54,15 +54,21 @@ public class OeuvreService {
 		return oeuvreRepository.save(oeuvre);
 	}
 
-	public void addOeuvre(int oeuvreId, ListOfOeuvresId listId) {
+	public boolean addOeuvre(int oeuvreId, ListOfOeuvresId listId) {
 		Oeuvre oeuvre = oeuvreRepository.findById(oeuvreId).get();
 		// logger.info(listId);
 		// Je n'arrive pas à obtenir son id du coup je passe par la classe de l'id pour
 		// obtenir la liste souhaitée
 		ListOfOeuvres list = listRepository.findById(listId).get();
-
+		if(!list.getOeuvres().contains(oeuvre)) {
 		list.getOeuvres().add(oeuvre);
 		listRepository.save(list);
+		logger.info(oeuvre.getName() + " a été ajouté à la liste " + listId.getName());
+		return true;
+		}else {
+			logger.info(oeuvre.getName() + " est déjà dans la liste " + listId.getName());
+			return false;
+		}
 	}
 
 }
