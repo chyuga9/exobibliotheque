@@ -61,15 +61,15 @@ public class UserController {
 
 	}
 	
-	@PutMapping("/user/{id}")
+	@PutMapping("/user")
 	public ResponseEntity<User> updateOeuvre(@RequestBody User user){
 		logger.info("Controller - Mise à jour d'une utilisateur");
 		User updatedUser = userService.updateUser(user);
 		return ResponseEntity.ok().body(updatedUser);
 	}
 	
-	@DeleteMapping("/user/{id}")
-	public ResponseEntity<String> deleteUser(@PathVariable int userId){
+	@DeleteMapping("/user")
+	public ResponseEntity<String> deleteUser(@RequestParam int userId){
 		logger.info("Controller - Recherche de l'utilisateur avec l'id \""+ userId + "\" pour suppression");
 		userService.deleteUser(userId);
 		return ResponseEntity.ok().body("User deleted");
