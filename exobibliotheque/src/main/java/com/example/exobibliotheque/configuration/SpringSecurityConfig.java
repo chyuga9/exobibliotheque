@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+// ------- !!!!!!!!!! Ne laisser que les lignes indiquées par les commentaires pour tous permettre
+
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
@@ -24,10 +26,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	*/
 	@Override
 	public void configure(HttpSecurity http) throws Exception{
+		
+		// !!! Permet d'utiliser presque toutes les requetes HTTP
+		
         http.authorizeRequests().antMatchers("/").permitAll();
 
-		/*
-		 * http.httpBasic()
+		
+		 http
+		 /*
+		  	.httpBasic()
 			.and()
 			.authorizeRequests()
 			.antMatchers("/admin").hasRole("ADMIN")
@@ -40,7 +47,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 			 * Permet de contourner l'erreur 403 obtenu pour la requete POST
 			 * à creuser
 			 */
-		//.csrf().disable();
+		 // !!! Permet d'utiliser POST / DELETE
+		.csrf().disable();
 			//.and()
 			//.oauth2Login();
 	}

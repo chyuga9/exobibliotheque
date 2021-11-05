@@ -1,0 +1,24 @@
+<div class="col-sm-4 col-sm-offset-2">
+    <form [formGroup]="oeuvreForm" (ngSubmit)="onSaveOeuvre()">
+        <div class="form-group">
+            <label for="name">Titre</label>
+            <input type="text" class="form-control" id="name" formControlName="name">
+        </div>
+        <div class="form-group">
+            <label for="dateDeSortie">Date de sortie</label>
+            <input type="date" class="form-control" id="dateDeSortie" formControlName="dateDeSortie">
+        </div>
+        <div class="form-group">
+            <label for="synopsis">Synopsis</label>
+            <input type="text" class="form-control" id="synopsis" formControlName="synopsis">
+        </div>
+        <div class="form-group">
+            <label for="category">Catégorie</label>
+            <select name="category" id="category" formControlName="category">
+                <option value="" place>Choisir une catégorie</option>
+                <option [value]="category.category" *ngFor="let category of categories, let j = index">{{ category.category }}</option>
+            </select>
+            <button class="btn btn-success" [disabled]="oeuvreForm.invalid">Enregistrer</button>
+        </div>
+    </form>
+</div>

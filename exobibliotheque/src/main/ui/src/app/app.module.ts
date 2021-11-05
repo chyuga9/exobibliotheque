@@ -11,9 +11,11 @@ import { HeaderComponent } from './header/header.component';
 import { OeuvreListComponent } from './oeuvre-list/oeuvre-list.component';
 import { OeuvreService } from './oeuvre.service';
 import { SingleOeuvreComponent } from './single-oeuvre/single-oeuvre.component';
+import { NewOeuvreComponent } from './new-oeuvre/new-oeuvre.component';
 
 const appRoutes : Routes =[
   {path: 'books', component: OeuvreListComponent},
+  {path: 'newoeuvre', component: NewOeuvreComponent},
   {path: '', redirectTo:'books' , pathMatch: 'full'},
   {path: '**', redirectTo:'books'},
 ]
@@ -23,7 +25,8 @@ const appRoutes : Routes =[
     AppComponent,
     HeaderComponent,
     OeuvreListComponent,
-    SingleOeuvreComponent
+    SingleOeuvreComponent,
+    NewOeuvreComponent
   ],
   imports: [
     BrowserModule,

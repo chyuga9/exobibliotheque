@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { Oeuvre } from '../model/oeuvre.model';
@@ -10,7 +11,41 @@ import { OeuvreService } from '../oeuvre.service';
   templateUrl: './oeuvre-list.component.html',
   styleUrls: ['./oeuvre-list.component.scss']
 })
-export class OeuvreListComponent implements OnInit {
+export class OeuvreListComponent implements OnInit{
+ 
+  oeuvres:Oeuvre[] = [];
+  oeuvreSubscription: Subscription;
+
+  constructor(private oeuvreService: OeuvreService,
+              private router:Router){}
+
+  ngOnDestroy() {
+    this.oeuvreSubscription.unsubscribe();
+  }
+
+  ngOnInit(){
+    this.oeuvreSubscription = this.oeuvreService.oeuvreSubject.subscribe(
+      (oeuvres:Oeuvre[]) => {
+        this.oeuvres = oeuvres;
+        console.log("0-");
+    console.log(this.oeuvres);
+      }, (error) => {
+        console.log('Il y a une erreur ' + error);
+        
+      }
+    );
+    // arrive forcément avant car local et asynchrone, normal qu'il soit vide
+    console.log("1-");
+    console.log(this.oeuvres);
+    this.oeuvreService.getOeuvres();
+
+  }
+
+  onNewOeuvre(){
+    this.router.navigate(['/newoeuvre']);
+  }
+ /*
+  Version Fonctionnelle
 
   oeuvres:any[] = [];
   oeuvreSubject: Subject<boolean> = new Subject<boolean>();
@@ -29,8 +64,7 @@ export class OeuvreListComponent implements OnInit {
       this.oeuvres = oeuvres;
     });
   }
-
-  onNewOeuvre(){
-    
-  }
+*/
+  
+  
 }
