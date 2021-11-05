@@ -62,19 +62,19 @@ public class ListOfOeuvresController {
 		return ResponseEntity.created(location).body(newList);
 	}
 	
-	@DeleteMapping("/listofoeuvres/{listName}")
-	public ResponseEntity<String> deleteListOfOeuvres(@PathVariable String listName){
-		logger.info("Controller - Recherche de la liste \""+ listName + "\" pour suppression");
-		listOfOeuvresService.deleteListOfOeuvres(listName);
+	@DeleteMapping("/listofoeuvres")
+	public ResponseEntity<String> deleteListOfOeuvres(@RequestBody ListOfOeuvresId listId){
+		logger.info("Controller - Recherche de la liste \""+ listId+ "\" pour suppression");
+		listOfOeuvresService.deleteListOfOeuvres(listId);
 		return ResponseEntity.ok().body("List deleted");
 	}
 	
 	// ----- Controllers supplémetaires
 	
 	@DeleteMapping("/listofoeuvres/deleteoeuvrefromlist")
-	public ResponseEntity<Boolean> deleteOeuvreFromList( @RequestBody Oeuvre oeuvre, @RequestParam ListOfOeuvresId listId) {
-		logger.info("Controller - Recherche de l'oeuvre avec l'id " + oeuvre.getId() + "pour suppression de la liste");
-		listOfOeuvresService.deleteOeuvreFromList(oeuvre, listId);
+	public ResponseEntity<Boolean> deleteOeuvreFromList( @RequestParam int oeuvreId, @RequestBody ListOfOeuvresId listId) {
+		logger.info("Controller - Recherche de l'oeuvre avec l'id " + oeuvreId + "pour suppression de la liste");
+		listOfOeuvresService.deleteOeuvreFromList(oeuvreId, listId);
 		return ResponseEntity.ok().build();
 	}
 }

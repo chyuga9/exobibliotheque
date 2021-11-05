@@ -10,6 +10,7 @@ import com.example.exobibliotheque.model.ListOfOeuvres;
 import com.example.exobibliotheque.model.ListOfOeuvresId;
 import com.example.exobibliotheque.model.Oeuvre;
 import com.example.exobibliotheque.repository.ListOfOeuvresRepository;
+import com.example.exobibliotheque.repository.OeuvreRepository;
 import com.example.exobibliotheque.repository.UserRepository;
 
 @Service
@@ -21,6 +22,8 @@ public class ListOfOeuvresService {
 	private ListOfOeuvresRepository listOfOeuvresRepository;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private OeuvreRepository oeuvreRepository;
 	// ---------- Méthodes de base --------
 
 	public Iterable<ListOfOeuvres> getListsOfOeuvres() {
@@ -29,7 +32,7 @@ public class ListOfOeuvresService {
 	}
 
 	public ListOfOeuvres getSingleListOfOeuvres(String listName) {
-		if(!listOfOeuvresRepository.existByIdName(listName))
+		if(!listOfOeuvresRepository.existsByIdName(listName))
 			logger.info("Service - La liste \"" + listName + "\" n'existe pas");
 		return listOfOeuvresRepository.findByIdName(listName).get();
 	}
@@ -44,17 +47,18 @@ public class ListOfOeuvresService {
 		return listOfOeuvresRepository.save(newList);
 	}
 
-	public void deleteListOfOeuvres(String listName) {
-		listOfOeuvresRepository.deleteByIdName(listName);
-		logger.info("La liste \"" + listName + "\" a été supprimée");
+	public void deleteListOfOeuvres(ListOfOeuvresId listId) {
+		listOfOeuvresRepository.deleteById(listId);
+		logger.info("La liste \"" + listId + "\" a été supprimée");
 		
 	}
 
-	public void deleteOeuvreFromList(Oeuvre oeuvre, ListOfOeuvresId listId) {
+	public void deleteOeuvreFromList(int oeuvreId, ListOfOeuvresId listId) {
 		ListOfOeuvres list = listOfOeuvresRepository.findById(listId).get();
+		Oeuvre oeuvre = oeuvreRepository.findById(oeuvreId).get();
 		list.getOeuvres().remove(oeuvre);
 		listOfOeuvresRepository.save(list);
-		logger.info("\"" + oeuvre.getName() + "\" a été supprimée de la liste \"" + listId.getName());
+		logger.info("\"" + oeuvreId + "\" a été supprimée de la liste \"" + listId.getName());
 	}
 
 }
