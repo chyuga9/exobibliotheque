@@ -14,10 +14,10 @@ import { SingleOeuvreComponent } from './single-oeuvre/single-oeuvre.component';
 import { NewOeuvreComponent } from './new-oeuvre/new-oeuvre.component';
 
 const appRoutes : Routes =[
-  {path: 'books', component: OeuvreListComponent},
+  {path: 'oeuvres', component: OeuvreListComponent},
   {path: 'newoeuvre', component: NewOeuvreComponent},
-  {path: '', redirectTo:'books' , pathMatch: 'full'},
-  {path: '**', redirectTo:'books'},
+  {path: '', redirectTo:'oeuvres' , pathMatch: 'full'},
+  {path: '**', redirectTo:'oeuvres'},
 ]
 
 @NgModule({

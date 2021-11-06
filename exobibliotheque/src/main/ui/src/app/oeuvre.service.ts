@@ -2,12 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil,catchError, retry, take  } from 'rxjs/operators';
-import { Category } from './model/category.model';
-import { Oeuvre } from './model/oeuvre.model';
+import { Category } from './model/category';
+import { Genre } from './model/genre';
+import { Oeuvre } from './model/oeuvre';
 
 @Injectable({
   providedIn: 'root'
 })
+
+// -------- https://angular.io/guide/http
 export class OeuvreService {
     rootURL = 'http://localhost:9007/api';
 
@@ -33,10 +36,13 @@ constructor(private http: HttpClient){
     this.oeuvreSubject.next(this.oeuvres);
   }
 
-  saveOeuvre(oeuvre:Oeuvre){
+  saveOeuvre(oeuvre:Oeuvre): Observable<Oeuvre>{
     console.log('Sauvegarde de l\' oeuvre');
     console.log(oeuvre);
-    this.http.post(this.rootURL + '/oeuvre',oeuvre);
+    console.log(this.http.post<Oeuvre>(this.rootURL + '/oeuvre',oeuvre));
+    console.log('uuuuuuuuuuuuuuuuu');
+    return    this.http.post<Oeuvre>(this.rootURL + '/oeuvre',oeuvre);
+
   }
 
   getCategories(){
@@ -44,6 +50,9 @@ constructor(private http: HttpClient){
     
       }
     
+  getGenres(){
+    return this.http.get<Genre[]>(this.rootURL + '/genres');
+  }
   
 
 /*

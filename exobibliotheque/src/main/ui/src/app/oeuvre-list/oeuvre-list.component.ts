@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Oeuvre } from '../model/oeuvre';
 
-import { Oeuvre } from '../model/oeuvre.model';
 import { OeuvreService } from '../oeuvre.service';
 
 @Component({

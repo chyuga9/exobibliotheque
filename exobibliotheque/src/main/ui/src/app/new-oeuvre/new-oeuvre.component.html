@@ -15,10 +15,32 @@
         <div class="form-group">
             <label for="category">Catégorie</label>
             <select name="category" id="category" formControlName="category">
-                <option value="" place>Choisir une catégorie</option>
+                <option value="">Choisir une catégorie</option>
                 <option [value]="category.category" *ngFor="let category of categories, let j = index">{{ category.category }}</option>
             </select>
-            <button class="btn btn-success" [disabled]="oeuvreForm.invalid">Enregistrer</button>
         </div>
+
+        <!--
+ 
+            
+
+            <option value="">Choisir un genre</option>
+                        <option [value]="genre.genre" *ngFor="let genre of genresList">{{ genre.genre }}</option>
+                    </select>
+
+            
+
+        <span class="glyphicon glyphicon-plus"></span>
+        -->
+        <ng-container formArrayName="genres">
+            <ng-container *ngFor="let genre of genres.controls, let k=index">
+                    <label for="connard">Genres</label>
+                    <input name="connard" id="connard" [formControlName]="k" >
+                        
+                    <button type="button" class="btn btn-default pull-right" (click)="addGenre()">Ajouter</button>
+</ng-container>
+              </ng-container> 
+              <div grid-row="2/4"></div> 
+        <button type="submit" class="btn btn-success" [disabled]="oeuvreForm.invalid">Enregistrer</button>
     </form>
 </div>
