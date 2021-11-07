@@ -1,6 +1,7 @@
 package com.example.exobibliotheque.controller;
 
 import java.net.URI;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,6 +45,12 @@ public class GenreController {
 	public ResponseEntity<Iterable<Genre>> getGenres() {
 		logger.info("Controller - Recherche de tous les genres");
 		return ResponseEntity.ok().body(genreService.getGenres());
+	}
+	
+	@GetMapping("/genres/{genre}")
+	public ResponseEntity<Optional<Genre>> getGenres(@PathVariable String genre) {
+		logger.info("Controller - Recherche des genres correspondant à " + genre);
+		return ResponseEntity.ok().body(genreService.getGenres(genre));
 	}
 /*
 	@GetMapping("/oeuvres/{id}")

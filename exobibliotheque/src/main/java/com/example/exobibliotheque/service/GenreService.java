@@ -33,6 +33,12 @@ public class GenreService {
 		logger.info("Service - Recherche de tous les genres");
 		return genreRepository.findAll();
 	}
+	
+	public Optional<Genre> getGenres(String genre) {
+		logger.info("Service - Recherche des genres correspondant à " + genre);
+		return genreRepository.findByGenreLike(genre);
+	}
+	
 /*
 	// Surement ajouter un try and catch mais avant vérifier ce qu'il se passe avec
 	// un id qui n'existe pas
