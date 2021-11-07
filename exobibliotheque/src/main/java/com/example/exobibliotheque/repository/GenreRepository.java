@@ -10,6 +10,6 @@ import com.example.exobibliotheque.model.Genre;
 @Repository
 public interface GenreRepository extends CrudRepository<Genre, String>{
 
-	Optional<Genre> findByGenreLike(String genre);
+	Optional<Iterable<Genre>> findByGenreContaining(String genre);
 
 }

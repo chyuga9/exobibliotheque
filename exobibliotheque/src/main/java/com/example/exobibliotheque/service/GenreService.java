@@ -34,9 +34,9 @@ public class GenreService {
 		return genreRepository.findAll();
 	}
 	
-	public Optional<Genre> getGenres(String genre) {
+	public Optional<Iterable<Genre>> getGenres(String genre) {
 		logger.info("Service - Recherche des genres correspondant à " + genre);
-		return genreRepository.findByGenreLike(genre);
+		return genreRepository.findByGenreContaining(genre);
 	}
 	
 /*
