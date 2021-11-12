@@ -12,10 +12,15 @@ import { OeuvreListComponent } from './oeuvre-list/oeuvre-list.component';
 import { OeuvreService } from './oeuvre.service';
 import { SingleOeuvreComponent } from './single-oeuvre/single-oeuvre.component';
 import { NewOeuvreComponent } from './new-oeuvre/new-oeuvre.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { AuthService } from './auth.service';
 
 const appRoutes : Routes =[
   {path: 'oeuvres', component: OeuvreListComponent},
   {path: 'newoeuvre', component: NewOeuvreComponent},
+  {path: 'signin', component:SignInComponent},
+  {path: 'signup', component:SignUpComponent},
   {path: '', redirectTo:'oeuvres' , pathMatch: 'full'},
   {path: '**', redirectTo:'oeuvres'},
 ]
@@ -26,7 +31,9 @@ const appRoutes : Routes =[
     HeaderComponent,
     OeuvreListComponent,
     SingleOeuvreComponent,
-    NewOeuvreComponent
+    NewOeuvreComponent,
+    SignInComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +46,7 @@ const appRoutes : Routes =[
     UserService,
     OeuvreService,
     ListOfOeuvresService,
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })

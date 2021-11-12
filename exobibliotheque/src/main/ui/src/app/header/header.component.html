@@ -1,1 +1,10 @@
-<p>header works!</p>
+<nav class="navbar navbar-dark bg-dark">
+    <a routerLink="oeuvres" class="navbar-brand justify-content-start ms-3">EXO</a>
+    <h1 class="text-white">{{authStatus}}</h1>
+    <div class="d-flex justify-content-end">
+        <button  type="button" class="btn btn-info me-3"  (click)="onChangeStatus()" >Change</button>
+        <a routerLink="signin" class="me-3" *ngIf="!authStatus">Connexion</a>
+        <button  type="button" class="btn btn-danger me-3" *ngIf="authStatus" (click)="onDisconnect()" >Déconnexion</button>
+        <a routerLink="signup" class="me-3">Inscription</a>
+    </div>
+</nav>

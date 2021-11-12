@@ -49,7 +49,7 @@ public class GenreController {
 	
 	@GetMapping("/genres/{genre}")
 	public ResponseEntity<Optional<Iterable<Genre>>> getGenres(@PathVariable String genre) {
-		logger.info("Controller - Recherche des genres correspondant à " + genre);
+		logger.info("Controller - Recherche des genres correspondant à '" + genre +"'");
 		return ResponseEntity.ok().body(genreService.getGenres(genre));
 	}
 /*
