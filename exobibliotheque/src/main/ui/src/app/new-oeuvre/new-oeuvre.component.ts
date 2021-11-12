@@ -20,7 +20,8 @@ export class NewOeuvreComponent implements OnInit, OnDestroy {
 
   categories:Category[];
   categoriesSubscription: Subscription;
-  ggg:string[]=[];
+  //ggg:string[]=[];
+  ggg:Genre[]=[];
   genresList:Genre[];
   genresSubscription:Subscription;
   genres$!: Observable<Genre[]>;
@@ -57,6 +58,7 @@ export class NewOeuvreComponent implements OnInit, OnDestroy {
               private router:Router) { }
 
   ngOnInit(): void {
+    this.genresList
     this.initForm();
     this.getCategories();
     //this.getGenres();
@@ -67,25 +69,20 @@ export class NewOeuvreComponent implements OnInit, OnDestroy {
       distinctUntilChanged(),
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.oeuvreService.searchGenre(term)),
-      map(
+      /*map(
         genres => genres.map(
           genre => {
             console.log('Viens ici, résultat booleen = ' + this.ggg.includes(genre.genre) );
             if(this.ggg.includes(genre.genre)){
-            console.log("quelque chose " + genre);
             genres.splice(genres.indexOf(genre));
           };
           this.genresList = genres;
           }
         )
-            /*genre => {if(this.ggg.includes(genre.genre)){
-            console.log("quelque chose " + genre);
-            */
-            //this.genresList.splice(this.genresList.indexOf(genre));
-          
-
-      ))
+      )*/
+      )
       .subscribe(
+        genres => this.genresList = genres
 // ne fonctionne pas
       //genres => this.genresList = genres,
           //genre => this.ggg.includes(genre.genre),
@@ -132,17 +129,8 @@ initForm(){
   
 }
 
-containsInGgg(genre:string): boolean{
-  for(let k = 0; k < this.ggg.length ; k++){
-    if(genre !== this.ggg[k])
-    {return false} ;
-    
-  }
-  return true;
-}
-
-addGenre(genre:string){
-  this.genres.push(this.formBuilder.control(genre));
+addGenre(genre:Genre){
+  this.genres.push(this.formBuilder.control(genre.genre));
   this.ggg.push(genre);
   /*
   for(let i = 0; i < this.genresList.length; i++ ){

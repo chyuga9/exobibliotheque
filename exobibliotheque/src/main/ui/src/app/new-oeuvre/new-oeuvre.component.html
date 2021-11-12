@@ -52,14 +52,28 @@
                         <label for="search-box">Indique le(s) genre(s)</label>
                         <input #searchBox id="search-box" (input)="search(searchBox.value)" />
                     
+                        <!-- Version très fonctionnelle qui cache le genre lorsqu'il a déjà été selectionné -->
                         <ul class="search-result " *ngIf="searchBox.value !== ''">
-                            <li *ngFor="let genre of genresList , let k=index"  [value]="genre.genre" style="cursor:pointer" (click)="addGenre(genre.genre)">
-                                {{genre.genre}}
+                            <ng-container *ngFor="let genre of genresList , let k=index" >
+                            <li *ngIf="!ggg.includes(genre)" [value]="genre.genre" style="cursor:pointer" (click)="addGenre(genre)">
+                              {{genre.genre}}
                             </li>
+                        </ng-container>
                         </ul>
+                        <ul class="d-flex p-2 bd-highlight">
+                            <li *ngFor="let genrechoisi of ggg" class="list-group-item p-2 bd-highlight">{{genrechoisi.genre}}</li>
+                        </ul>
+                        <!-- Version presque fonctionnelle qui cache le genre lorsqu'il a déjà été selectionné, sauf qu'il le fait après que l'utilisateur rentre une nouvelle recherche -->
+                   <!--     <ul class="search-result " *ngIf="searchBox.value !== ''">
+                            <li *ngFor="let genre of genresList , let k=index"  [value]="genre.genre" style="cursor:pointer" (click)="addGenre(genre.genre)">
+                              {{genre.genre}}
+                            </li>
+                            </ul>
                         <ul class="d-flex p-2 bd-highlight">
                             <li *ngFor="let genrechoisi of ggg" class="list-group-item p-2 bd-highlight">{{genrechoisi}}</li>
                         </ul>
+                            -->
+                        
                     </div>
                 </ng-container> 
              
