@@ -21,7 +21,7 @@ export class NewOeuvreComponent implements OnInit, OnDestroy {
   categories:Category[];
   categoriesSubscription: Subscription;
   //ggg:string[]=[];
-  ggg:Genre[]=[];
+  ggg:String[]=[];
   genresList:Genre[];
   genresSubscription:Subscription;
   genres$!: Observable<Genre[]>;
@@ -69,6 +69,17 @@ export class NewOeuvreComponent implements OnInit, OnDestroy {
       distinctUntilChanged(),
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.oeuvreService.searchGenre(term)),
+      /*
+      map(
+        genress => genress.filter(
+          genre => {
+          console.log('retourne genress : ' + genress + '\n contenu ggg = '+ this.ggg);
+          console.log(!this.ggg.includes(genre));
+          return !this.ggg.includes(genre);}
+
+        )
+      )
+      */
       /*map(
         genres => genres.map(
           genre => {
@@ -82,13 +93,30 @@ export class NewOeuvreComponent implements OnInit, OnDestroy {
       )*/
       )
       .subscribe(
-        genres => this.genresList = genres
+          genres => this.genresList = genres.filter(
+          genre => {!this.ggg.includes(genre.genre);
+             console.log('contenu ggg = '+ this.ggg);
+             console.log('genres : ' + genres);
+              genres.forEach(
+               genre =>
+               console.log('test booleen = '+ !this.ggg.includes(genre.genre))
+
+             );
+             return !this.ggg.includes(genre.genre)
+          }
+          /* {!this.ggg.includes(genre);
+            console.log('contenu ggg = '+ this.ggg);
+            console.log('test booleen = '+ !this.ggg.includes(genre));
+          console.log('retourne : ' +  genres)
+          }*/
+        )
+        );
 // ne fonctionne pas
       //genres => this.genresList = genres,
           //genre => this.ggg.includes(genre.genre),
         
-      )        
-      ;
+              
+      
 
       /*
       this.genres$.(
@@ -129,8 +157,8 @@ initForm(){
   
 }
 
-addGenre(genre:Genre){
-  this.genres.push(this.formBuilder.control(genre.genre));
+addGenre(genre:String){
+  this.genres.push(this.formBuilder.control(genre));
   this.ggg.push(genre);
   /*
   for(let i = 0; i < this.genresList.length; i++ ){
@@ -149,6 +177,7 @@ addGenre(genre:Genre){
 
 removeGenre(index:number){
   this.genres.removeAt(index);
+  this.ggg.splice(index);
 }
 
 // https://www.youtube.com/watch?v=aOQ1xFC3amw&ab_channel=AngularUniversity

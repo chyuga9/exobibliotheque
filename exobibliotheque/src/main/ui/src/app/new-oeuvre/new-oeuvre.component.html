@@ -55,13 +55,15 @@
                         <!-- Version très fonctionnelle qui cache le genre lorsqu'il a déjà été selectionné -->
                         <ul class="search-result " *ngIf="searchBox.value !== ''">
                             <ng-container *ngFor="let genre of genresList , let k=index" >
-                            <li *ngIf="!ggg.includes(genre)" [value]="genre.genre" style="cursor:pointer" (click)="addGenre(genre)">
+                            <li *ngIf="!ggg.includes(genre.genre)" [value]="genre.genre" style="cursor:pointer" (click)="addGenre(genre.genre)">
                               {{genre.genre}}
                             </li>
                         </ng-container>
                         </ul>
                         <ul class="d-flex p-2 bd-highlight">
-                            <li *ngFor="let genrechoisi of ggg" class="list-group-item p-2 bd-highlight">{{genrechoisi.genre}}</li>
+                            <!-- Pour pouvoir utiliser les icones dans bootstrap  -->
+                            <li *ngFor="let genrechoisi of ggg, let j=index" class="list-group-item p-2 bd-highlight " (click)="removeGenre(j)" style="cursor:pointer">{{genrechoisi}}<i class="bi bi-x-circle-fill ms-1 showicons"></i>
+                            </li>
                         </ul>
                         <!-- Version presque fonctionnelle qui cache le genre lorsqu'il a déjà été selectionné, sauf qu'il le fait après que l'utilisateur rentre une nouvelle recherche -->
                    <!--     <ul class="search-result " *ngIf="searchBox.value !== ''">
@@ -77,7 +79,7 @@
                     </div>
                 </ng-container> 
              
-              <!----><!----><!--
+              <!----><!--
               <ng-container formArrayName="genres">
                 <label for="genre-choice">Indique le(s) genre(s)</label>
                 <input list="list-of-genres" id="genre-choice" name="genre-choice"/>
