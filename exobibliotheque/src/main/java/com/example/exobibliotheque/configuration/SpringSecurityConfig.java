@@ -1,5 +1,7 @@
 package com.example.exobibliotheque.configuration;
 
+import java.util.ArrayList;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,20 +54,27 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 			.cors()
 		.and()
+			.httpBasic()
+			.and()
 			.authorizeRequests()
-	  			/*.antMatchers("/admin").hasRole("ADMIN")
+	  			.antMatchers("/admin").hasRole("ADMIN")
 	  			.antMatchers("/user").hasAnyRole("ADMIN","USER")
-	  			.antMatchers("/api/login").permitAll()*/
-				.antMatchers("/api/**").permitAll()
-	  			.anyRequest().authenticated();
-		/*.and()
+	  			.antMatchers("/api/login").permitAll()
+	  			.antMatchers("/api/oeuvres").permitAll() // permet à tout le monde de faire toutes les requetes...il faudrait créer un nouvel pour le post peut etre
+	  			.antMatchers("/api/createuser").permitAll()
+	  			.antMatchers("/api/genres").hasAnyRole("ADMIN","USER")
+	  			//.antMatchers("/api/genres").permitAll()
+	  			.antMatchers("/api/categories").hasAnyRole("ADMIN","USER")
+	  		//	.antMatchers("/api/**").permitAll()// accepte tous les utilisateurs
+	  			.anyRequest().authenticated() 
+		.and()
 	  		.formLogin()
-	  			.loginPage("/")
-	  			.permitAll()
 		.and()
 	  		.logout()
-	  			.permitAll();*/
+	  			.permitAll();
 		
+	String[] tab1 = {"012","123","234"};
+	ArrayList<String> tab2;
 	
 	//.and().csrf().disable().httpBasic();
 	//.and().formLogin();
@@ -173,8 +182,8 @@ https://docs.spring.io/spring-security/site/docs/current/reference/html5/#header
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/api/**")
         //registry.addMapping("/**")
-			.allowedOrigins("http://domain2.com")
-			.allowedMethods("PUT", "DELETE")
+			.allowedOrigins("http://localhost:4200/")
+			.allowedMethods("PUT", "DELETE", "POST")
 				.allowedHeaders("header1", "header2", "header3")
 			.exposedHeaders("header1", "header2")
 			.allowCredentials(false).maxAge(3600);
