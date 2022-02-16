@@ -1,0 +1,37 @@
+  <!--   <form [formGroup]="userForm" action="" class="mx-auto w-25 border border-light rounded p-2" (ngSubmit)="f.form.valid && onConnect()" #f="ngform" novalidate>
+
+  <form name="form" #f="ngForm" class="mx-auto w-25 border border-light rounded p-2" (ngSubmit)="f.form.valid && onConnect(model.email,model.password)"  novalidate>
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+        <label for="email" class="mb-1">Email</label>
+      
+        <input type="text" class="form-control mb-3" id="email" name="email" placeholder="Email" [(ngModel)]="model.email" #email="ngModel" required>
+        <div *ngIf="f.submitted && !email.valid">Email is required </div>
+
+        <div [ngClass]="{ 'has-error': f.submitted && !password.valid }"></div>
+        <label for="password" class="mb-1">Mot de passe</label>
+        <input type="password" class="form-control mb-3" id="password" name="password" placeholder="Mot de passe" [(ngModel)]="model.password" #password="ngModel" >
+        <div *ngIf="f.submitted && !!password.valid">Password is required</div>
+
+        <div class="form-group form-check mb-3">
+            <input type="checkbox" class="form-check-input " id="inMemory">
+            <label for="inMemory" class="ms-1">Se souvenir de moi ?</label>
+        </div>
+    </div>    
+    <button type="submit" class="btn btn-success" (click)="onConnect(model.email,model.password)">Se connecter</button>
+    </form>
+    <div class="d-flex justify-content-end">
+
+</div>
+--> 
+
+<form action="" id="accesspanel" >
+  <h1 id="litheader">Chyuga</h1>
+      <div class="inset">
+          <input type="text" name="email" id="email" [(ngModel)]="model.email" placeholder="email">
+          
+          <input type="password" name="password" id="password" [(ngModel)]="model.password" placeholder="password">
+      </div>
+      <p class="p-container">
+        <input type="submit" name="Login" id="go" value="Login" (click)="onConnect(model.email,model.password)">
+      </p>
+</form>

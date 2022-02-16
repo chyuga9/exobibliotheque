@@ -1,8 +1,10 @@
 
-    <button class="list-group-item">
-        <h3 class="list-group-item-heading">{{ oeuvre.name }}</h3>
-        <button class="btn btn-default pull-right" >
-            <span class="glyphicon glyphicon-minus"></span>
+    <div class="list-group-item" role="button">
+        
+        <h3 class="d-flex flex-column bg-primary w-75 align-items-stretch" >{{ oeuvre.name }}</h3>
+        <button class="btn btn-danger pull-right d-inline justify-content-end" (click)="onDeleteOeuvre(oeuvre)" *ngIf="isAuth">
+            <fa-icon icon="minus"></fa-icon>
         </button>
-        <p class="list-group-item-next">Synopsis : {{ oeuvre.synopsis }}(click)="onDeleteOeuvre(oeuvre)"</p>
-    </button>
+        <p *ngIf="!isAuth">Je suis vrai</p>
+        <p class="d-flex flex-column  bg-warning w-75 align-items-stretch" >Synopsis : {{ oeuvre.synopsis }}</p>
+    </div>

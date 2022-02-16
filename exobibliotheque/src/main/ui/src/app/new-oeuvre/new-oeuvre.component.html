@@ -15,10 +15,83 @@
         <div class="form-group">
             <label for="category">Catégorie</label>
             <select name="category" id="category" formControlName="category">
-                <option value="" place>Choisir une catégorie</option>
+                <option value="">Choisir une catégorie</option>
                 <option [value]="category.category" *ngFor="let category of categories, let j = index">{{ category.category }}</option>
             </select>
-            <button class="btn btn-success" [disabled]="oeuvreForm.invalid">Enregistrer</button>
         </div>
+
+        <!--
+ 
+            
+
+            <option value="">Choisir un genre</option>
+                        <option [value]="genre.genre" *ngFor="let genre of genresList">{{ genre.genre }}</option>
+                    </select>
+
+            
+
+        <span class="glyphicon glyphicon-plus"></span>
+        -->
+    <!-- 
+        Version fonctionnelle
+
+        <ng-container formArrayName="genres">
+            <ng-container *ngFor="let genre of genres.controls, let k=index">
+                    <label for="connard">Genres</label>
+                    <input name="connard" id="connard" [formControlName]="k" >
+                        
+                    <button type="button" class="btn btn-default pull-right" (click)="addGenre()">Ajouter</button>
+</ng-container>
+              </ng-container> 
+                
+              dropdown-menu dropdown-menu-dark
+              class="dropdown-item"
+            -->
+                <ng-container formArrayName="genres">
+                    <div id="search-component">
+                        <label for="search-box">Indique le(s) genre(s)</label>
+                        <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+                    
+                        <!-- Version très fonctionnelle qui cache le genre lorsqu'il a déjà été selectionné -->
+                        <ul class="search-result " *ngIf="searchBox.value !== ''">
+                            <ng-container *ngFor="let genre of genresList , let k=index" >
+                            <li *ngIf="!ggg.includes(genre.genre)" [value]="genre.genre" style="cursor:pointer" (click)="addGenre(genre.genre)">
+                              {{genre.genre}}
+                            </li>
+                        </ng-container>
+                        </ul>
+                        <ul class="d-flex p-2 bd-highlight">
+                            <!-- Pour pouvoir utiliser les icones dans bootstrap  -->
+                            <li *ngFor="let genrechoisi of ggg, let j=index" class="list-group-item p-2 bd-highlight " (click)="removeGenre(j)" style="cursor:pointer">{{genrechoisi}}<i class="bi bi-x-circle-fill ms-1 showicons"></i>
+                            </li>
+                        </ul>
+                        <!-- Version presque fonctionnelle qui cache le genre lorsqu'il a déjà été selectionné, sauf qu'il le fait après que l'utilisateur rentre une nouvelle recherche -->
+                   <!--     <ul class="search-result " *ngIf="searchBox.value !== ''">
+                            <li *ngFor="let genre of genresList , let k=index"  [value]="genre.genre" style="cursor:pointer" (click)="addGenre(genre.genre)">
+                              {{genre.genre}}
+                            </li>
+                            </ul>
+                        <ul class="d-flex p-2 bd-highlight">
+                            <li *ngFor="let genrechoisi of ggg" class="list-group-item p-2 bd-highlight">{{genrechoisi}}</li>
+                        </ul>
+                            -->
+                        
+                    </div>
+                </ng-container> 
+             
+              <!----><!--
+              <ng-container formArrayName="genres">
+                <label for="genre-choice">Indique le(s) genre(s)</label>
+                <input list="list-of-genres" id="genre-choice" name="genre-choice"/>
+
+                    <datalist id="list-of-genres">
+                        <option *ngFor="let genre of genresList, let k=index" [value]="genre.genre" (click)="addGenre(genre.genre)">
+                    </datalist>
+                <ul>
+                    <li *ngFor="let genrechoisi of ggg" >{{genrechoisi}}</li>
+                </ul>
+                </ng-container>-->
+              <div grid-row="2/4"></div> 
+        <button type="submit" class="btn btn-success" [disabled]="oeuvreForm.invalid">Enregistrer</button>
     </form>
 </div>
