@@ -1,6 +1,6 @@
 
-    <div class="d-flex flex-row" width="100%" role="button">
-        <div class="d-flex flex-column p-1 col-8" width="100%">
+    <div class="d-flex flex-row p-1" width="100%" role="button">
+        <div class="d-flex flex-column p-1 col-8 transparent" width="100%">
             <h3 class="d-flex flex-column bg-primary  align-items-stretch p-2" >{{ oeuvre.name }}</h3>
             <button class="btn btn-danger pull-right d-inline justify-content-end p-2" (click)="onDeleteOeuvre(oeuvre)" *ngIf="isAuth">
                 <fa-icon icon="minus"></fa-icon>
@@ -8,9 +8,22 @@
             <p *ngIf="!isAuth" class="p-2">Je suis vrai</p>
             <p class="d-flex flex-column  bg-warning  align-items-stretch p-2" >Synopsis : {{ oeuvre.synopsis }}</p>
         </div>
-        <div class="d-flex  p-1 " width="100%">
+        <div class="d-flex  p-1 transparent" width="100%">
             <!-- <img src="https://www.w3schools.com/images/picture.jpg" alt=""> -->
             <!-- <img src="{{oeuvre.image}}" alt=""> -->            
-            <img src="../../assets/s128130.jpg" max-width="auto" alt="">
+            <!--<img src="../../assets/s128130.jpg" alt="">Fonctionne-->
+            <!--<img src="assets/s128130.jpg" alt="">Fonctionne-->
+            <!--<img src="../../assets/uploads/1084924.png" alt="">Fonctionne-->
+            <!--<img src="uploads/1084924.png" alt="">Fonctionne-->
+            <!--<img src="../../../../../../uploads/1084924.png" alt=""> Fonctionne-->
+            <img src="../../../../../..{{oeuvre.image}}" alt="">
+
+<!--
+    "src/uploads",
+    {"input":"src/uploads"},
+
+            <img src="../../../angular.json" alt="">
+            <img src="../../../../../../uploads/" alt="">-->
+           <!-- <img src="{{oeuvre.image}}" alt="">-->
         </div>
     </div>
