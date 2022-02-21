@@ -66,6 +66,8 @@ public class Oeuvre {
 	@JoinColumn(name="oeuvre_name")
 	private List<Comment> comments;
 	
+	private String image;
+	
 	
 	
 	
