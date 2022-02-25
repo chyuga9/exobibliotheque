@@ -79,6 +79,7 @@ http
   			.antMatchers("/api/genres/*").permitAll()
   			//.antMatchers("/api/categories").hasAnyRole("ADMIN","USER")
   			.antMatchers("/api/categories").permitAll()
+  			.antMatchers("/api/upload").permitAll()
   		//	.antMatchers("/api/**").permitAll()// accepte tous les utilisateurs
   			.anyRequest().authenticated() 
 	.and()
