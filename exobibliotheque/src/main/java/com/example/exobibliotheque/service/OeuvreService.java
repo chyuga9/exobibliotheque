@@ -45,18 +45,10 @@ public class OeuvreService {
 		return oeuvreRepository.findById(oeuvreId).get();
 	}
 
-	public Oeuvre saveOeuvre(Oeuvre oeuvre, MultipartFile file) {
+	public Oeuvre saveOeuvre(Oeuvre oeuvre) {
 		logger.info("Enregistrement d'une nouvelle oeuvre");
 		
-		  try {
-			  if(!file.equals(null)){
-				  oeuvre.setImage(this.root.resolve(file.getOriginalFilename()).toString());
-				  Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
-			  }
 			  return oeuvreRepository.save(oeuvre);
-		    } catch (Exception e) {
-		      throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
-		    }
 	}
 
 	public void deleteOeuvre(int oeuvreId) {
@@ -84,4 +76,11 @@ public class OeuvreService {
 		}
 	}
 
+	public void save(MultipartFile file) {
+	    try {
+	      Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
+	    } catch (Exception e) {
+	      throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+	    }
+	  }
 }
