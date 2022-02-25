@@ -51,10 +51,10 @@ public class OeuvreController {
 	}
 
 	@PostMapping("/oeuvre")
-	public ResponseEntity<Oeuvre> createOeuvre(@RequestBody Oeuvre oeuvre,@RequestParam (required=false)MultipartFile file ) {
+	public ResponseEntity<Oeuvre> createOeuvre(@RequestBody Oeuvre oeuvre ) {
 		logger.info("Controller - Ajout d'une oeuvre");
 		
-		Oeuvre newOeuvre = oeuvreService.saveOeuvre(oeuvre,file);
+		Oeuvre newOeuvre = oeuvreService.saveOeuvre(oeuvre);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(oeuvre.getId())
 				.toUri();
@@ -89,5 +89,17 @@ public class OeuvreController {
 		}
 	}
 	
+	@PostMapping("/upload")
+	  public ResponseEntity<String> uploadFile(@RequestParam ("file") MultipartFile file) {
+	    String message = "";
+	    try {
+	      oeuvreService.save(file);
+	      message = "Uploaded the file successfully: " + file.getOriginalFilename();
+	      return ResponseEntity.status(HttpStatus.OK).body(message);
+	    } catch (Exception e) {
+	      message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+	      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+	    }
+	  }
 	
 }
