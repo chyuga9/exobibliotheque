@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -20,8 +21,7 @@ export class NewOeuvreComponent implements OnInit, OnDestroy {
 
   categories:Category[];
   categoriesSubscription: Subscription;
-  //ggg:string[]=[];
-  ggg:String[]=[];
+  genresChoisis:String[]=[];
   genresList:Genre[];
   genresSubscription:Subscription;
   genres$!: Observable<Genre[]>;
@@ -55,7 +55,8 @@ export class NewOeuvreComponent implements OnInit, OnDestroy {
 
   constructor(private oeuvreService:OeuvreService,
               private formBuilder: FormBuilder,
-              private router:Router) { }
+              private router:Router,
+              private http:HttpClient) { }
 
   ngOnInit(): void {
     this.genresList //bizarre...pas de point virgule...
@@ -63,7 +64,7 @@ export class NewOeuvreComponent implements OnInit, OnDestroy {
     this.getCategories();
     //this.getGenres();
     this.searchTermsSubscription = this.searchTerms.pipe(
-      // wait 300ms after each keystroke before considering the term
+      // wait 500ms after each keystroke before considering the term
       debounceTime(500),
       // ignore new term if same as previous term
       distinctUntilChanged(),
@@ -94,15 +95,15 @@ export class NewOeuvreComponent implements OnInit, OnDestroy {
       )
       .subscribe(
           genres => this.genresList = genres.filter(
-          genre => {!this.ggg.includes(genre.genre);
-             console.log('contenu ggg = '+ this.ggg);
+          genre => {!this.genresChoisis.includes(genre.genre);
+             console.log('contenu genreChoisis = '+ this.genresChoisis);
              console.log('genres : ' + genres);
               genres.forEach(
                genre =>
-               console.log('test booleen = '+ !this.ggg.includes(genre.genre))
+               console.log('test booleen = '+ !this.genresChoisis.includes(genre.genre))
 
              );
-             return !this.ggg.includes(genre.genre)
+             return !this.genresChoisis.includes(genre.genre)
           }
           /* {!this.ggg.includes(genre);
             console.log('contenu ggg = '+ this.ggg);
@@ -125,6 +126,8 @@ export class NewOeuvreComponent implements OnInit, OnDestroy {
   }))
 */
 }
+
+
 
   getCategories(){
     this.categoriesSubscription = this.oeuvreService.getCategories().subscribe(
@@ -159,7 +162,7 @@ initForm(){
 
 addGenre(genre:String){
   this.genres.push(this.formBuilder.control(genre));
-  this.ggg.push(genre);
+  this.genresChoisis.push(genre);
   /*
   for(let i = 0; i < this.genresList.length; i++ ){
     for(let k= 0; k < this.ggg.length; k++){
@@ -171,13 +174,15 @@ addGenre(genre:String){
     
   }*/
   ;
-  console.log(this.genres);
-  console.log(this.ggg);
+  console.log("addgenre - " + this.genres);
+  console.log(this.genresChoisis);
 }
 
 removeGenre(index:number){
   this.genres.removeAt(index);
-  this.ggg.splice(index);
+  this.genresChoisis.splice(index,1);
+  console.log("oeuvre genre = " + this.genres.getRawValue());
+  
 }
 
 // https://www.youtube.com/watch?v=aOQ1xFC3amw&ab_channel=AngularUniversity
@@ -219,7 +224,7 @@ onSaveOeuvre(){
     // Push a search term into the observable stream.
   search(term:string){
     this.searchTerms.next(term);
-    console.log(term)
+    console.log("NewOeuvreComponent - " + term)
   }
 
   ngOnDestroy(){
