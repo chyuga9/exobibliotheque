@@ -58,21 +58,33 @@ public void configure(HttpSecurity http) throws Exception{
 	/*
     http.authorizeRequests().antMatchers("/").permitAll();
 	http.csrf().disable();
-	*/
+	
 	
 	// ordre antMatchers() -> du plus spécifique au plus général
 	//https://www.baeldung.com/spring-security-login
 	
 http
-		.cors();
+		.cors()
+		.and().csrf().disable().httpBasic()
+		
+		.and().authorizeRequests()
+		.antMatchers("/api/oeuvre").permitAll();
+*/
+
+	
+/* */
 	http
+	.cors() // sans cette ligne, impossible de se connecter depuis angular
+	.and().csrf().disable() // sans cette ligne, aucune requête POST ne passe... Il faut trouver une solution pcq je ne pense pas que ce soit bon de désactiver le csrf
 		.httpBasic()
 		.and()
 		.authorizeRequests()
   			.antMatchers("/admin").hasRole("ADMIN")
   			.antMatchers("/user").hasAnyRole("ADMIN","USER")
-  			.antMatchers("/api/login").permitAll().antMatchers("/api/logemail").permitAll()
+  			.antMatchers("/api/login").permitAll()
+  			.antMatchers("/api/logemail").permitAll()
   			.antMatchers("/api/oeuvres").permitAll() // permet à tout le monde de faire toutes les requetes...il faudrait créer un nouvel pour le post peut etre
+  			.antMatchers("/api/oeuvre").permitAll()
   			.antMatchers("/api/createuser").permitAll()
   			//.antMatchers("/api/genres").hasAnyRole("ADMIN","USER")
   			.antMatchers("/api/genres").permitAll()
